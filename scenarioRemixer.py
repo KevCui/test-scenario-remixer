@@ -132,7 +132,7 @@ def main():
     logging.debug('args:\n' + str(args))
 
     try:
-        result = subprocess.run("md_tot_json %s" % args.file[0], shell=True, stdout=subprocess.PIPE)
+        result = subprocess.run("md_to_json %s" % args.file[0], shell=True, stdout=subprocess.PIPE)
         rawdata = json.loads(result.stdout)
     except:
         print('Cannot read input file')
@@ -143,14 +143,15 @@ def main():
 
     for i in range(args.number[0]):
         print('>> Scenario ' + str(i + 1))
+        # Insert interruption
         if not randomInterrupt(data):
             data = checkSenarioData(data, rawdata, currentId)
             data, currentId = showSenario(data, currentId)
 
-
+        # Interaction
         if not args.mute:
             input('Press enter: ')
-        print('\n')
+            print('\n')
 
 if __name__ == '__main__':
     main()
