@@ -5,6 +5,7 @@ import logging
 import random
 import copy
 import argparse
+import subprocess
 from datetime import datetime
 
 #
@@ -131,8 +132,8 @@ def main():
     logging.debug('args:\n' + str(args))
 
     try:
-        with open(args.file[0]) as data_file:
-            rawdata = json.load(data_file)
+        result = subprocess.run("md_tot_json %s" % args.file[0], shell=True, stdout=subprocess.PIPE)
+        rawdata = json.loads(result.stdout)
     except:
         print('Cannot read input file')
         sys.exit(1)
