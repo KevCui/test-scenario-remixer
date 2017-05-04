@@ -121,6 +121,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('file',  nargs=1, help='input json file')
     parser.add_argument('-n',  '--number', nargs=1, type=int, default=[DEFAULT_SCENARIO_NUM], help='number of scenario to display')
+    parser.add_argument('-m',  '--mute', action='store_true', dest="mute", help='generate checklist without interation')
     parser.add_argument('-d',  '--debug', action='store_true', dest="debug", help='active debug log')
 
     args = parser.parse_args()
@@ -145,7 +146,9 @@ def main():
             data = checkSenarioData(data, rawdata, currentId)
             data, currentId = showSenario(data, currentId)
 
-        input('Press enter: ')
+
+        if not args.mute:
+            input('Press enter: ')
         print('\n')
 
 if __name__ == '__main__':
